@@ -7,19 +7,37 @@
     <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
 <body>
-    <div class="title">
-        <h1>Jogo da memória</h1>
-    </div>
-    <div class="score-info">
-        <span>Pontuação: </span>
-        <span id="score"></span>
-        <span>Tentativas: </span>
-        <span id="tentativas"></span>
-    </div>
-    <div class="container-cards">
-        <div class="card">
-            <img class="image" src="" alt="Planeta ...">
+
+    <header class="title">
+        <h1>🪐 Jogo da Memória</h1>
+    </header>
+
+    <section class="score-info">
+        <div class="score-box">
+            <span>Pontuação:</span>
+            <span id="score">0</span>
         </div>
-    </div>
+
+        <div class="score-box">
+            <span>Tentativas:</span>
+            <span id="tentativas">0</span>
+        </div>
+    </section>
+
+    <main class="container-cards">
+
+        <!-- CARD BASE (vai ser replicado via JS depois) -->
+        <div class="card" data-planet="">
+            <div class="card-inner">
+                <div class="card-front"></div>
+
+                <div class="card-back">
+                    <img class="image" src="" alt="Planeta">
+                </div>
+            </div>
+        </div>
+
+    </main>
+
 </body>
 </html>
