@@ -1,63 +1,148 @@
-const cards = document.querySelectorAll(".card");
+const cards = document.querySelectorAll(".card")
+const scoreSpan = document.getElementById("score")
+const attemptsSpan = document.getElementById("attempts")
+const resetBtn = document.getElementById("reset")
 
-let primeiraCarta = null;
-let segundaCarta = null;
-let travado = false;
+resetBtn.addEventListener("click", resetGame)
 
-let tentativas = 0;
-let pontos = 0;
+let firstCard = null
+let secondCard = null
+let lock = false
+let score = 0
+let attempts = 0
 
-const tentativasSpan = document.getElementById("tentativas");
-const scoreSpan = document.getElementById("score");
+scoreSpan.textContent = score
+attemptsSpan.textContent = attempts
 
 
-cards.forEach((card) => {
-    card.addEventListener("click", () => virarCarta(card));
-});
+const planets = [
+  "mars", "jupiter", "saturn", "venus",
+  "earth", "neptune", "uranus", "mercury"
+]
 
-function virarCarta(card) {
-    if (travado) return;
-    if (card === primeiraCarta) return;
+
+let gamePlanets = [...planets, ...planets]
+gamePlanets.sort(() => Math.random() - 0.5)
+
+
+cards.forEach((card, index) => {
+  const planet = gamePlanets[index]
+
+  const img = card.querySelector(".image")
+  const title = card.querySelector(".card-title")
+
+  card.dataset.planet = planet
+
+  img.src = `./assets/images/card-type/${planet}.png`
+  title.textContent = planet.charAt(0).toUpperCase() + planet.slice(1)
+
+  card.addEventListener("click", () => handleClick(card))
+})
+
+
+function handleClick(card) {
+  if (lock) return
+  if (card === firstCard) return
+  if (card.classList.contains("face-up")) return
+
+  flipCard(card)
+
+  if (!firstCard) {
+    firstCard = card
+    return
+  }
+
+  secondCard = card
+  attempts++
+  attemptsSpan.textContent = attempts
+
+  checkMatch()
+}
+
+
+function flipCard(card) {
+  const contain = card.querySelector(".card-contain")
+
+  card.classList.add("face-up")
+  contain.classList.remove("hidden")
+}
+
+
+function unflipCards() {
+  lock = true
+
+  setTimeout(() => {
+    [firstCard, secondCard].forEach(card => {
+      const contain = card.querySelector(".card-contain")
+
+      card.classList.remove("face-up")
+      contain.classList.add("hidden")
+    })
+
+    resetTurn()
+  }, 1000)
+}
+
+
+function checkMatch() {
+  const isMatch =
+    firstCard.dataset.planet === secondCard.dataset.planet
+
+  if (isMatch) {
+    score++
+    scoreSpan.textContent = score
 
     
-    card.classList.add("flip");
+    firstCard.style.pointerEvents = "none"
+    secondCard.style.pointerEvents = "none"
 
-    if (!primeiraCarta) {
-        primeiraCarta = card;
-        return;
-    }
-
-    segundaCarta = card;
-
-    verificarPar();
+    resetTurn()
+  } else {
+    unflipCards()
+  }
 }
 
-function verificarPar() {
-    travado = true;
-    tentativas++;
 
-    tentativasSpan.textContent = tentativas;
-
-    const planeta1 = primeiraCarta.querySelector("img").src;
-    const planeta2 = segundaCarta.querySelector("img").src;
-
-    if (planeta1 === planeta2) {
-        pontos++;
-        scoreSpan.textContent = pontos;
-
-        resetarJogada();
-    } else {
-        setTimeout(() => {
-            primeiraCarta.classList.remove("flip");
-            segundaCarta.classList.remove("flip");
-
-            resetarJogada();
-        }, 1000);
-    }
+function resetTurn() {
+  firstCard = null
+  secondCard = null
+  lock = false
 }
 
-function resetarJogada() {
-    primeiraCarta = null;
-    segundaCarta = null;
-    travado = false;
+function resetGame() {
+  
+  firstCard = null
+  secondCard = null
+  lock = false
+  score = 0
+  attempts = 0
+
+  scoreSpan.textContent = score
+  attemptsSpan.textContent = attempts
+
+  
+  gamePlanets = [...planets, ...planets]
+  gamePlanets.sort(() => Math.random() - 0.5)
+
+  
+  cards.forEach((card, index) => {
+    const planet = gamePlanets[index]
+
+    const img = card.querySelector(".image")
+    const title = card.querySelector(".card-title")
+    const contain = card.querySelector(".card-contain")
+
+    
+    card.classList.remove("face-up", "match", "error")
+    contain.classList.add("hidden")
+
+    
+    card.style.pointerEvents = "auto"
+
+    
+    card.dataset.planet = planet
+    img.src = `./assets/images/card-type/${planet}.png`
+    title.textContent =
+      planet.charAt(0).toUpperCase() + planet.slice(1)
+  })
 }

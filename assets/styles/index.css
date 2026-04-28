@@ -140,3 +140,35 @@ body {
   text-align: center;
   text-transform: uppercase;
 }
+
+#reset {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+
+  font-family: "Nasalization", monospace;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  color: #0ff;
+  background: rgba(0, 255, 255, 0.1);
+
+  border: 1px solid #0ff;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+
+#reset:hover {
+  background: rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  transform: scale(1.05);
+}
+
+
+#reset:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 5px #0ff;
+}
