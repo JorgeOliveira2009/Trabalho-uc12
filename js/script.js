@@ -2,6 +2,7 @@ const cards = document.querySelectorAll(".card")
 const scoreSpan = document.getElementById("score")
 const attemptsSpan = document.getElementById("attempts")
 const resetBtn = document.getElementById("reset")
+const timeSpan = document.getElementById("time")
 
 resetBtn.addEventListener("click", resetGame)
 
@@ -11,15 +12,18 @@ let lock = false
 let score = 0
 let attempts = 0
 
+
+let time = 0
+let timer = null
+
 scoreSpan.textContent = score
 attemptsSpan.textContent = attempts
-
+timeSpan.textContent = "00:00"
 
 const planets = [
   "mars", "jupiter", "saturn", "venus",
   "earth", "neptune", "uranus", "mercury"
 ]
-
 
 let gamePlanets = [...planets, ...planets]
 gamePlanets.sort(() => Math.random() - 0.5)
@@ -44,6 +48,11 @@ function handleClick(card) {
   if (lock) return
   if (card === firstCard) return
   if (card.classList.contains("face-up")) return
+
+  
+  if (!timer) {
+    startTimer()
+  }
 
   flipCard(card)
 
@@ -92,9 +101,13 @@ function checkMatch() {
     score++
     scoreSpan.textContent = score
 
-    
     firstCard.style.pointerEvents = "none"
     secondCard.style.pointerEvents = "none"
+
+    
+    if (score === 8) {
+      stopTimer()
+    }
 
     resetTurn()
   } else {
@@ -109,8 +122,31 @@ function resetTurn() {
   lock = false
 }
 
+
+function startTimer() {
+  timer = setInterval(() => {
+    time++
+
+    const minutes = Math.floor(time / 60)
+    const seconds = time % 60
+
+    const formatted =
+      String(minutes).padStart(2, "0") +
+      ":" +
+      String(seconds).padStart(2, "0")
+
+    timeSpan.textContent = formatted
+  }, 1000)
+}
+
+
+function stopTimer() {
+  clearInterval(timer)
+  timer = null
+}
+
+
 function resetGame() {
-  
   firstCard = null
   secondCard = null
   lock = false
@@ -121,10 +157,13 @@ function resetGame() {
   attemptsSpan.textContent = attempts
 
   
+  stopTimer()
+  time = 0
+  timeSpan.textContent = "00:00"
+
   gamePlanets = [...planets, ...planets]
   gamePlanets.sort(() => Math.random() - 0.5)
 
-  
   cards.forEach((card, index) => {
     const planet = gamePlanets[index]
 
@@ -132,14 +171,11 @@ function resetGame() {
     const title = card.querySelector(".card-title")
     const contain = card.querySelector(".card-contain")
 
-    
     card.classList.remove("face-up", "match", "error")
     contain.classList.add("hidden")
 
-    
     card.style.pointerEvents = "auto"
 
-    
     card.dataset.planet = planet
     img.src = `./assets/images/card-type/${planet}.png`
     title.textContent =
