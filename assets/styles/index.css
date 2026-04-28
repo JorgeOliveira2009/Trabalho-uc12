@@ -36,7 +36,7 @@ body {
 .info {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   margin: 0 5%;
   height: 5vh;
   color: #d4d6d6fb;
@@ -63,13 +63,23 @@ body {
   width: 128px;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.6s;
+  /* transition controla como ocorrem as transições entre dois estados 
+  transition: propriedade controlada; tempo de duração; forma de transição
+  */
+  transition: all 0.6s ease;
   cursor: pointer;
 }
 
 
 .card:hover {
+  /* transform irá mudar a forma como um elemento é exibido 
+  nesse caso, ele escala-o para ficar 5% maior
+  */
   transform: scale(1.05);
+  /* box-shadow dá uma sombra a um elemento
+  box-shadow: desvio-x; desvio-y; desfoque; espalhamento; cor
+  */
+  box-shadow: 0px 0px 42px 2px #676b756c;
 }
 
 
@@ -91,21 +101,6 @@ body {
   height: 100%;
   backface-visibility: hidden;
   border-radius: 5px;
-  /* transition controla como ocorrem as transições entre dois estados 
-  transition: propriedade controlada; tempo de duração; forma de transição
-  */
-  transition: all 0.5s ease;
-}
-
-.card:hover {
-  /* transform irá mudar a forma como um elemento é exibido 
-  nesse caso, ele escala-o para ficar 5% maior
-  */
-  transform: scale(1.05);
-  /* box-shadow dá uma sombra a um elemento
-  box-shadow: desvio-x; desvio-y; desfoque; espalhamento; cor
-  */
-  box-shadow: 0px 0px 42px 2px #676b756c;
 }
 
 
@@ -160,16 +155,16 @@ body {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
-
-  font-family: "Nasalization", monospace;
+  /* inherit significa para herdar a propriedade do elemento pai */
+  font-family: inherit;
   font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 1px;
 
-  color: #0ff;
-  background: rgba(0, 255, 255, 0.1);
+  color: inherit;
+  background: rgba(0, 110, 255, 0.1);
 
-  border: 1px solid #0ff;
+  border: 1px solid #3c4b6d;
   cursor: pointer;
 
   transition: all 0.3s ease;
@@ -177,13 +172,13 @@ body {
 
 
 #reset:hover {
-  background: rgba(0, 255, 255, 0.2);
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  background: rgba(0, 110, 255, 0.2);
+  box-shadow: 0 0 10px #4e5d80, 0 0 20px #4e5d80;
   transform: scale(1.05);
 }
 
 
 #reset:active {
   transform: scale(0.95);
-  box-shadow: 0 0 5px #0ff;
+  box-shadow: 0 0 5px #4e5d80;
 }
