@@ -200,15 +200,3 @@ body {
 }
 
 
-#time {
-  animation: glow 1.5s infinite alternate;
-}
-
-@keyframes glow {
-  from {
-    box-shadow: 0 0 5px #0ff;
-  }
-  to {
-    box-shadow: 0 0 15px #0ff;
-  }
-}
