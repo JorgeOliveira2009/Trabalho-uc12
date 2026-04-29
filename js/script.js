@@ -28,7 +28,7 @@ let planetasJogo = [...planetas, ...planetas]
 planetasJogo.sort(() => Math.random() - 0.5)
 
 cartas.forEach((carta, index) => {
-  const planeta = planetasJogo[index
+  const planeta = planetasJogo[index]
 
   const img = carta.querySelector(".image")
   const titulo = carta.querySelector(".card-title")
