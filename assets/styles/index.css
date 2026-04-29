@@ -163,7 +163,6 @@ body {
   /* inherit significa para herdar a propriedade do elemento pai */
   font-family: inherit;
   font-size: 0.9em;
-  text-transform: uppercase;
   letter-spacing: 1px;
 
   color: inherit;
@@ -178,7 +177,7 @@ body {
 
 #reset:hover {
   background: rgba(0, 110, 255, 0.2);
-  box-shadow: 0 0 10px #4e5d80, 0 0 20px #4e5d80;
+  box-shadow: 0 0 10px #4e5d80, 0 0 20px #333a4d;
   transform: scale(1.05);
 }
 
@@ -189,17 +188,17 @@ body {
 }
 
 #time {
-  font-family: "Nasalization", monospace;
+  font-family: inherit;
   font-size: 1.2em;
-  color: #0ff;
+  color: inherit;
 
   padding: 6px 12px;
   border-radius: 6px;
 
-  border: 1px solid #0ff;
-  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid #3c4b6d;
+  background: rgba(0, 110, 255, 0.1);
 
-  box-shadow: 0 0 8px #0ff;
+  box-shadow: 0 0 8px #4e5d80a1;
   letter-spacing: 2px;
 }
 
