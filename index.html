@@ -22,12 +22,34 @@
         <button id="reset">Resetar</button>
       </div>
       <div class="container-cards">
+         <!-- ===================== EXEMPLO DE UMA CARTA ===================== -->
+
+        <!-- Cada carta representa uma unidade do jogo.
+             Todas têm a mesma estrutura, mas o conteúdo é preenchido pelo JS. -->
         <div class="card face-down">
+
+          <!-- Esse container guarda o conteúdo real da carta (imagem + nome).
+               Ele começa escondido (classe "hidden"). -->
           <div class="card-contain hidden">
+
+            <!-- Imagem do planeta.
+                 O src começa vazio e é definido via JavaScript. -->
             <img class="image" src="" alt="Carta escondida" />
+
+            <!-- Nome do planeta.
+                 Também é preenchido dinamicamente pelo JS. -->
             <h3 class="card-title"></h3>
+
           </div>
         </div>
+
+        <!-- =============================================================== -->
+
+
+        <!-- As outras cartas são cópias da mesma estrutura.
+             Isso porque o jogo precisa de várias cartas iguais estruturalmente,
+             mas com conteúdos diferentes atribuídos dinamicamente. -->
+
         <div class="card face-down">
           <div class="card-contain hidden">
             <img class="image" src="" alt="Carta escondida" />
