@@ -47,7 +47,7 @@ body {
 #reset {
   margin-left: auto;
   padding: 8px 16px;
-  background: #ff3c3c;
+  background: #000654;
   border: none;
   border-radius: 5px;
   color: white;
@@ -55,7 +55,7 @@ body {
 }
 
 #reset:hover {
-  background: #ff1c1c;
+  background: #000654;
 }
 
 
