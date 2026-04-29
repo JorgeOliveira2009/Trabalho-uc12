@@ -1,184 +1,166 @@
-const cards = document.querySelectorAll(".card")
-const scoreSpan = document.getElementById("score")
-const attemptsSpan = document.getElementById("attempts")
-const resetBtn = document.getElementById("reset")
-const timeSpan = document.getElementById("time")
+const cartas = document.querySelectorAll(".card")
+const pontuacaoSpan = document.getElementById("score")
+const tentativasSpan = document.getElementById("attempts")
+const botaoReset = document.getElementById("reset")
+const tempoSpan = document.getElementById("time")
 
-resetBtn.addEventListener("click", resetGame)
+botaoReset.addEventListener("click", reiniciarJogo)
 
-let firstCard = null
-let secondCard = null
-let lock = false
-let score = 0
-let attempts = 0
+let primeiraCarta = null
+let segundaCarta = null
+let travado = false
+let pontuacao = 0
+let tentativas = 0
 
+let tempo = 0
+let cronometro = null
 
-let time = 0
-let timer = null
+pontuacaoSpan.textContent = pontuacao
+tentativasSpan.textContent = tentativas
+tempoSpan.textContent = "00:00"
 
-scoreSpan.textContent = score
-attemptsSpan.textContent = attempts
-timeSpan.textContent = "00:00"
-
-const planets = [
+const planetas = [
   "mars", "jupiter", "saturn", "venus",
   "earth", "neptune", "uranus", "mercury"
 ]
 
-let gamePlanets = [...planets, ...planets]
-gamePlanets.sort(() => Math.random() - 0.5)
+let planetasJogo = [...planetas, ...planetas]
+planetasJogo.sort(() => Math.random() - 0.5)
 
+cartas.forEach((carta, index) => {
+  const planeta = planetasJogo[index]
 
-cards.forEach((card, index) => {
-  const planet = gamePlanets[index]
+  const img = carta.querySelector(".image")
+  const titulo = carta.querySelector(".card-title")
 
-  const img = card.querySelector(".image")
-  const title = card.querySelector(".card-title")
+  carta.dataset.planeta = planeta
 
-  card.dataset.planet = planet
+  img.src = `./assets/images/card-type/${planeta}.png`
+  titulo.textContent = planeta.charAt(0).toUpperCase() + planeta.slice(1)
 
-  img.src = `./assets/images/card-type/${planet}.png`
-  title.textContent = planet.charAt(0).toUpperCase() + planet.slice(1)
-
-  card.addEventListener("click", () => handleClick(card))
+  carta.addEventListener("click", () => lidarClique(carta))
 })
 
+function lidarClique(carta) {
+  if (travado) return
+  if (carta === primeiraCarta) return
+  if (carta.classList.contains("face-up")) return
 
-function handleClick(card) {
-  if (lock) return
-  if (card === firstCard) return
-  if (card.classList.contains("face-up")) return
+  if (!cronometro) iniciarTempo()
 
-  
-  if (!timer) {
-    startTimer()
-  }
+  virarCarta(carta)
 
-  flipCard(card)
-
-  if (!firstCard) {
-    firstCard = card
+  if (!primeiraCarta) {
+    primeiraCarta = carta
     return
   }
 
-  secondCard = card
-  attempts++
-  attemptsSpan.textContent = attempts
+  segundaCarta = carta
+  tentativas++
+  tentativasSpan.textContent = tentativas
 
-  checkMatch()
+  verificarPar()
 }
 
+function virarCarta(carta) {
+  const conteudo = carta.querySelector(".card-contain")
 
-function flipCard(card) {
-  const contain = card.querySelector(".card-contain")
-
-  card.classList.add("face-up")
-  contain.classList.remove("hidden")
+  carta.classList.add("face-up")
+  conteudo.classList.remove("hidden")
 }
 
-
-function unflipCards() {
-  lock = true
+function desvirarCartas() {
+  travado = true
 
   setTimeout(() => {
-    [firstCard, secondCard].forEach(card => {
-      const contain = card.querySelector(".card-contain")
+    [primeiraCarta, segundaCarta].forEach(carta => {
+      const conteudo = carta.querySelector(".card-contain")
 
-      card.classList.remove("face-up")
-      contain.classList.add("hidden")
+      carta.classList.remove("face-up")
+      conteudo.classList.add("hidden")
     })
 
-    resetTurn()
-  }, 1000)
+    resetarJogada()
+  }, 700) 
 }
 
+function verificarPar() {
+  const acertou =
+    primeiraCarta.dataset.planeta === segundaCarta.dataset.planeta
 
-function checkMatch() {
-  const isMatch =
-    firstCard.dataset.planet === secondCard.dataset.planet
+  if (acertou) {
+    pontuacao++
+    pontuacaoSpan.textContent = pontuacao
 
-  if (isMatch) {
-    score++
-    scoreSpan.textContent = score
+    primeiraCarta.style.pointerEvents = "none"
+    segundaCarta.style.pointerEvents = "none"
 
-    firstCard.style.pointerEvents = "none"
-    secondCard.style.pointerEvents = "none"
-
-    
-    if (score === 8) {
-      stopTimer()
+    if (pontuacao === 8) {
+      pararTempo()
     }
 
-    resetTurn()
+    resetarJogada()
   } else {
-    unflipCards()
+    desvirarCartas()
   }
 }
 
-
-function resetTurn() {
-  firstCard = null
-  secondCard = null
-  lock = false
+function resetarJogada() {
+  primeiraCarta = null
+  segundaCarta = null
+  travado = false
 }
 
+function iniciarTempo() {
+  cronometro = setInterval(() => {
+    tempo++
 
-function startTimer() {
-  timer = setInterval(() => {
-    time++
+    const min = Math.floor(tempo / 60)
+    const seg = tempo % 60
 
-    const minutes = Math.floor(time / 60)
-    const seconds = time % 60
-
-    const formatted =
-      String(minutes).padStart(2, "0") +
-      ":" +
-      String(seconds).padStart(2, "0")
-
-    timeSpan.textContent = formatted
+    tempoSpan.textContent =
+      String(min).padStart(2, "0") + ":" +
+      String(seg).padStart(2, "0")
   }, 1000)
 }
 
-
-function stopTimer() {
-  clearInterval(timer)
-  timer = null
+function pararTempo() {
+  clearInterval(cronometro)
+  cronometro = null
 }
 
+function reiniciarJogo() {
+  primeiraCarta = null
+  segundaCarta = null
+  travado = false
+  pontuacao = 0
+  tentativas = 0
 
-function resetGame() {
-  firstCard = null
-  secondCard = null
-  lock = false
-  score = 0
-  attempts = 0
+  pontuacaoSpan.textContent = pontuacao
+  tentativasSpan.textContent = tentativas
 
-  scoreSpan.textContent = score
-  attemptsSpan.textContent = attempts
+  pararTempo()
+  tempo = 0
+  tempoSpan.textContent = "00:00"
 
-  
-  stopTimer()
-  time = 0
-  timeSpan.textContent = "00:00"
+  planetasJogo = [...planetas, ...planetas]
+  planetasJogo.sort(() => Math.random() - 0.5)
 
-  gamePlanets = [...planets, ...planets]
-  gamePlanets.sort(() => Math.random() - 0.5)
+  cartas.forEach((carta, index) => {
+    const planeta = planetasJogo[index]
 
-  cards.forEach((card, index) => {
-    const planet = gamePlanets[index]
+    const img = carta.querySelector(".image")
+    const titulo = carta.querySelector(".card-title")
+    const conteudo = carta.querySelector(".card-contain")
 
-    const img = card.querySelector(".image")
-    const title = card.querySelector(".card-title")
-    const contain = card.querySelector(".card-contain")
+    carta.classList.remove("face-up")
+    conteudo.classList.add("hidden")
 
-    card.classList.remove("face-up", "match", "error")
-    contain.classList.add("hidden")
+    carta.style.pointerEvents = "auto"
 
-    card.style.pointerEvents = "auto"
-
-    card.dataset.planet = planet
-    img.src = `./assets/images/card-type/${planet}.png`
-    title.textContent =
-      planet.charAt(0).toUpperCase() + planet.slice(1)
+    carta.dataset.planeta = planeta
+    img.src = `./assets/images/card-type/${planeta}.png`
+    titulo.textContent =
+      planeta.charAt(0).toUpperCase() + planeta.slice(1)
   })
 }
