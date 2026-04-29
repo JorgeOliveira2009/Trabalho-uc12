@@ -12,7 +12,6 @@ let travado = false
 let pontuacao = 0
 let tentativas = 0
 
-
 let tempo = 0
 let cronometro = null
 
@@ -20,19 +19,16 @@ pontuacaoSpan.textContent = pontuacao
 tentativasSpan.textContent = tentativas
 tempoSpan.textContent = "00:00"
 
-
 const planetas = [
   "mars", "jupiter", "saturn", "venus",
   "earth", "neptune", "uranus", "mercury"
 ]
 
-
 let planetasJogo = [...planetas, ...planetas]
 planetasJogo.sort(() => Math.random() - 0.5)
 
-
 cartas.forEach((carta, index) => {
-  const planeta = planetasJogo[index]
+  const planeta = planetasJogo[index
 
   const img = carta.querySelector(".image")
   const titulo = carta.querySelector(".card-title")
@@ -45,13 +41,11 @@ cartas.forEach((carta, index) => {
   carta.addEventListener("click", () => lidarClique(carta))
 })
 
-
 function lidarClique(carta) {
   if (travado) return
   if (carta === primeiraCarta) return
   if (carta.classList.contains("face-up")) return
 
-  
   if (!cronometro) iniciarTempo()
 
   virarCarta(carta)
@@ -68,14 +62,12 @@ function lidarClique(carta) {
   verificarPar()
 }
 
-
 function virarCarta(carta) {
   const conteudo = carta.querySelector(".card-contain")
 
   carta.classList.add("face-up")
   conteudo.classList.remove("hidden")
 }
-
 
 function desvirarCartas() {
   travado = true
@@ -89,9 +81,8 @@ function desvirarCartas() {
     })
 
     resetarJogada()
-  }, 1000)
+  }, 700) 
 }
-
 
 function verificarPar() {
   const acertou =
@@ -104,7 +95,6 @@ function verificarPar() {
     primeiraCarta.style.pointerEvents = "none"
     segundaCarta.style.pointerEvents = "none"
 
-    r
     if (pontuacao === 8) {
       pararTempo()
     }
@@ -115,35 +105,29 @@ function verificarPar() {
   }
 }
 
-
 function resetarJogada() {
   primeiraCarta = null
   segundaCarta = null
   travado = false
 }
 
-
 function iniciarTempo() {
   cronometro = setInterval(() => {
     tempo++
 
-    const minutos = Math.floor(tempo / 60)
-    const segundos = tempo % 60
+    const min = Math.floor(tempo / 60)
+    const seg = tempo % 60
 
-    const formatado =
-      String(minutos).padStart(2, "0") + ":" +
-      String(segundos).padStart(2, "0")
-
-    tempoSpan.textContent = formatado
+    tempoSpan.textContent =
+      String(min).padStart(2, "0") + ":" +
+      String(seg).padStart(2, "0")
   }, 1000)
 }
-
 
 function pararTempo() {
   clearInterval(cronometro)
   cronometro = null
 }
-
 
 function reiniciarJogo() {
   primeiraCarta = null
@@ -155,7 +139,6 @@ function reiniciarJogo() {
   pontuacaoSpan.textContent = pontuacao
   tentativasSpan.textContent = tentativas
 
-  
   pararTempo()
   tempo = 0
   tempoSpan.textContent = "00:00"
