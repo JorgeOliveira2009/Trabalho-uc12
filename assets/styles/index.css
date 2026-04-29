@@ -1,20 +1,37 @@
+/* Reset básico.
+   Remove margens e espaçamentos padrão do navegador e garante que
+   o cálculo de tamanho (width/height) inclua padding e border.
+   Isso evita inconsistências entre navegadores. */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+
+/* Importa uma fonte personalizada.
+   Isso dá identidade visual ao jogo e foge da aparência padrão.
+   Caso a fonte não carregue, o navegador usa a próxima definida (monospace). */
 @font-face {
   font-family: "Nasalization";
   src: url("../fonts/NasalizationRg.otf");
 }
 
+
+/* Estilo global da página.
+   Define tamanho base da fonte, aplica a fonte personalizada
+   e define uma cor de fundo caso a imagem não carregue. */
 body {
   font-size: 18px;
   font-family: "Nasalization", monospace;
   background-color: #171f32;
 }
 
+
+/* Container principal do jogo.
+   Ocupa toda a altura da tela (100vh) e aplica um fundo com tema espacial.
+   background-size: cover garante que a imagem preencha a tela inteira
+   sem distorcer, mesmo em resoluções diferentes. */
 .background {
   height: 100vh;
   width: 100%;
@@ -23,10 +40,13 @@ body {
 }
 
 
+/* Área do título.
+   Usa flexbox para centralizar o texto tanto horizontal quanto verticalmente.
+   height define o espaço reservado para o título na tela. */
 .title {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center;      /* centraliza verticalmente */
+  justify-content: center;  /* centraliza horizontalmente */
   height: 15vh;
   color: #d4d6d6fb;
 }
@@ -44,6 +64,9 @@ body {
 }
 
 
+/* Botão de reset.
+   margin-left: auto empurra o botão para a direita dentro do flex.
+   Isso funciona porque ele está dentro de um container flex (.info). */
 #reset {
   font-size: inherit;
   padding: 10px 20px;
@@ -54,55 +77,86 @@ body {
   cursor: pointer;
 }
 
+
+/* Estado hover do botão.
+   Aqui não mudou a cor, então visualmente fica igual.
+   Poderia ser usado pra dar feedback ao usuário. */
 #reset:hover {
   background: rgba(0, 110, 255, 0.2);
 }
 
 
+/* Container das cartas.
+   Aqui está a estrutura do tabuleiro do jogo. */
 .container-cards {
   height: 60vh;
   width: 100%;
   padding: 20px;
 
+  /* Grid layout:
+     Cria uma grade com 8 colunas iguais.
+     Como são 16 cartas, isso gera 2 linhas automaticamente. */
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+
+  /* Espaçamento entre as cartas */
   gap: 10px;
+
+  /* Centraliza cada carta dentro da célula */
   justify-items: center;
   align-items: center;
 }
 
 
+/* Estilo base da carta (lado virado para baixo).
+   Define tamanho fixo e imagem de fundo padrão. */
 .card {
   height: 192px;
   width: 128px;
   border-radius: 5px;
   cursor: pointer;
 
+  /* Imagem da parte de trás da carta */
   background: url("../images/card-style/card-face-down.png");
   background-size: cover;
 }
 
 
+/* Estado da carta quando está virada.
+   Essa classe é adicionada pelo JavaScript.
+   Aqui ocorre a troca visual da carta (flip "seco"). */
 .card.face-up {
   background: url("../images/card-style/card-face-up.png");
   background-size: cover;
 }
 
 
+/* Classe usada para esconder o conteúdo interno da carta.
+   Quando a carta está virada para baixo, o conteúdo fica oculto. */
 .card-contain.hidden {
   display: none;
 }
 
+
+/* Container interno da carta (imagem + nome).
+   width: 100% garante que ocupe toda a largura da carta. */
 .card-contain {
   width: 100%;
-  text-align: center;
+  text-align: center; /* centraliza o conteúdo dentro da carta */
 }
 
+
+/* Imagem do planeta dentro da carta.
+   Define tamanho e espaçamento superior. */
 .image {
   width: 100px;
   margin: 20px 5px;
 }
 
+
+/* Nome do planeta.
+   Cor mais suave para combinar com o tema e tamanho reduzido
+   para não competir visualmente com a imagem. */
 .card-title {
   color: #a6b4b1ee;
   font-size: 0.8em;
