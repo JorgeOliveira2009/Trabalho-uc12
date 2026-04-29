@@ -52,18 +52,15 @@ body {
 }
 
 
-/* Área de informações (pontuação, tentativas, tempo).
-   Também usa flexbox, mas aqui os elementos ficam alinhados à esquerda.
-   O gap cria espaçamento entre os itens sem precisar usar margin manual. */
-.info {
+.container-info {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   margin: 0 5%;
   height: 5vh;
   color: #d4d6d6fb;
   padding: 20px;
-  gap: 20px;
+  gap: 10px;
 }
 
 
@@ -71,13 +68,13 @@ body {
    margin-left: auto empurra o botão para a direita dentro do flex.
    Isso funciona porque ele está dentro de um container flex (.info). */
 #reset {
-  margin-left: auto;
-  padding: 8px 16px;
-  background: #000654;
+  font-size: inherit;
+  padding: 10px 20px;
+  background: rgba(0, 110, 255, 0.1);
   border: none;
   border-radius: 5px;
-  color: white;
-  cursor: pointer; /* muda o cursor pra indicar que é clicável */
+  color: inherit;
+  cursor: pointer;
 }
 
 
@@ -85,7 +82,7 @@ body {
    Aqui não mudou a cor, então visualmente fica igual.
    Poderia ser usado pra dar feedback ao usuário. */
 #reset:hover {
-  background: #000654;
+  background: rgba(0, 110, 255, 0.2);
 }
 
 
@@ -153,7 +150,7 @@ body {
    Define tamanho e espaçamento superior. */
 .image {
   width: 100px;
-  margin-top: 10px;
+  margin: 20px 5px;
 }
 
 

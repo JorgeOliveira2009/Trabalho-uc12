@@ -169,7 +169,7 @@ function desvirarCartas() {
 }
 
 
-// ===================== COMPARAÇÃO DE CARTAS =====================
+// ====================== COMPARAÇÃO DE CARTAS ======================
 
 function verificarPar() {
 

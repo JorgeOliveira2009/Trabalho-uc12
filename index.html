@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jogo da memória</title>
+    <link rel="shortcut icon" href="./assets/images/icon/cards.png" type="image/x-icon">
     <link rel="stylesheet" href="./assets/styles/index.css" />
   </head>
   <body>
@@ -11,15 +12,22 @@
       <div class="title">
         <h1>Encontre os pares de planetas</h1>       
       </div>
-      <div class="info">
-        <span>Pontuação: </span>
-        <span id="score"></span>
-        <span>Tentativas: </span>
-        <span id="attempts"></span>
-        
-        <span id="time">Tempo: </span>
-
-        <button id="reset">Resetar</button>
+      <div class="container-info">
+        <div class="info">
+          <span>Pontuação: </span>
+          <span id="score"></span>
+        </div>
+        <div class="info">
+          <span>Tentativas: </span>
+          <span id="attempts"></span>
+        </div>
+        <div class="info">
+          <span>Tempo:</span>
+          <span id="time"></span>
+        </div>
+        <div class="info">
+          <button id="reset">Resetar</button>
+        </div>
       </div>
       <div class="container-cards">
          <!-- ===================== EXEMPLO DE UMA CARTA ===================== -->
