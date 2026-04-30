@@ -1,6 +1,10 @@
 ## Jogo da memória: encontre os pares de planetas 
+Link: https://jorgeoliveira2009.github.io/Trabalho-uc12/
 --- 
 ### Projeto desenvolvido como trabalho da UC12.
+Feito por: 
+Eduarda Cristina dos Santos e
+Jorge Júnior de Oliveira Corrêa
 ---
 ### O jogo começa assim que o usuário clicar em uma carta. Deve-se encontrar o par correspondente até que as cartas terminem.
 ---
