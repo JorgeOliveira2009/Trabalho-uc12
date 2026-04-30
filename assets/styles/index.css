@@ -64,9 +64,7 @@ body {
 }
 
 
-/* Botão de reset.
-   margin-left: auto empurra o botão para a direita dentro do flex.
-   Isso funciona porque ele está dentro de um container flex (.info). */
+/* Botão de reset. */
 #reset {
   font-size: inherit;
   padding: 10px 20px;
@@ -78,9 +76,7 @@ body {
 }
 
 
-/* Estado hover do botão.
-   Aqui não mudou a cor, então visualmente fica igual.
-   Poderia ser usado pra dar feedback ao usuário. */
+/* Estado hover do botão */
 #reset:hover {
   background: rgba(0, 110, 255, 0.2);
 }
